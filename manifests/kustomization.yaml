@@ -1,0 +1,12 @@
+resources:
+  - ns.yaml
+  - https://github.com/metacontroller/metacontroller/manifests/production/
+  - crd.yaml
+  - compositecontroller.yaml
+  - controller.yaml
+  - rbac.yaml
+
+patchesStrategicMerge:
+  - delete-metacontroller-ns.patch.yaml
+
+namespace: amiok

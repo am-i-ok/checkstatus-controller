@@ -3,6 +3,7 @@ import { CheckStatusObject } from './types'
 import express from 'express'
 
 const port = Number(process.env.PORT || '3009')
+const image = process.env.INTERVAL_IMAGE || 'kimaharfi/amiok-interval:0.0.2'
 
 async function main() {
     try {
@@ -55,7 +56,7 @@ function getPod(checkStatusObject: CheckStatusObject): V1Pod {
             containers: [
                 {
                     name: 'interval',
-                    image: 'kimaharfi/amiok-interval:0.0.1',
+                    image,
                     imagePullPolicy: 'Always',
                     env: [
                         {

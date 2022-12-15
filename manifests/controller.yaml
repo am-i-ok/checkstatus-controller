@@ -14,11 +14,13 @@ spec:
     spec:
       containers:
       - name: controller
-        image: kimaharfi/amiok-controller:0.0.3
+        image: kimaharfi/amiok-controller:0.0.5
         imagePullPolicy: Always
         env:
           - name: PORT
             value: "80"
+          - name: INTERVAL_IMAGE
+            value: kimaharfi/amiok-interval:0.0.2
         ports:
           - containerPort: 80
             name: controller
