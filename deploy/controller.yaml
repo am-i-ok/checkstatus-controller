@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-controller
+  template:
+    metadata:
+      labels:
+        app: test-controller
+    spec:
+      containers:
+      - name: controller
+        image: kimaharfi/amiok-controller:0.0.3
+        imagePullPolicy: Always
+        env:
+          - name: PORT
+            value: "80"
+        ports:
+          - containerPort: 80
+            name: controller
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-controller
+spec:
+  selector:
+    app: test-controller
+  ports:
+  - port: 80
+
