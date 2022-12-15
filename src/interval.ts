@@ -14,7 +14,7 @@ const name = process.env.CHECK_STATUS_OBJECT_NAME || ''
 const namespace = process.env.CHECK_STATUS_OBJECT_NAMESPACE || ''
 
 interface GetCheckStatusPlatformResponse {
-    healthy: boolean
+    status: string
 }
 
 function getDesiredCheckStatus(actual: CheckStatusObject, healthy: boolean): CheckStatusObject {
@@ -52,7 +52,7 @@ async function main() {
             // set(actual, 'status.healthy', res.data.healthy)
             console.log(`applying status for check ${name} in namespace ${namespace}`)
             // const newObject = await k8sService.apply(desired)
-            const newObject = await k8sService.setNamespacedCustomObjectStatus({ ...CHECK_STATUS_GVR, name, namespace }, { healthy: res.data.healthy })
+            const newObject = await k8sService.setNamespacedCustomObjectStatus({ ...CHECK_STATUS_GVR, name, namespace }, { healthy: res.data.status })
             console.log(JSON.stringify(newObject))
             console.log(`successfully applied status for check ${name} in namespace ${namespace}`)
         } catch (err) {

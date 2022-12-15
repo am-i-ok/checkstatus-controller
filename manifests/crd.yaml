@@ -16,7 +16,7 @@ spec:
     - description: Status of the check
       jsonPath: .status.healthy
       name: Healthy
-      type: boolean
+      type: string
     name: v1alpha1
     schema:
       openAPIV3Schema:
