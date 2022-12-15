@@ -45,7 +45,7 @@ async function main() {
     while (true) {
         try {
             console.log(`getting status from the platform for check ${name} in namespace ${namespace}`)
-            const res = await axios.get<GetCheckStatusPlatformResponse>(`${platformBaseUrl}/check/${checkDefinitionRef}`)
+            const res = await axios.get<GetCheckStatusPlatformResponse>(`${platformBaseUrl}/api/check/${checkDefinitionRef}`)
             // const { body: actual } = await k8sService.getNamespacedCustomObject({ ...CHECK_STATUS_GVR, namespace, name })
             // const desired: CheckStatusObject = getDesiredCheckStatus(actual as CheckStatusObject, res.data.healthy)
             // omit(actual.metadata, [ 'uid', 'resourceVersion', 'managedFields', 'annotations', 'creationTimestamp', 'generation' ])
