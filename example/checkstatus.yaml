@@ -1,0 +1,20 @@
+apiVersion: amiok.io/v1alpha1
+kind: CheckStatus
+metadata:
+  name: my-check
+spec:
+  checkDefinitionRef: abc
+---
+apiVersion: amiok.io/v1alpha1
+kind: CheckStatus
+metadata:
+  name: my-check2
+spec:
+  checkDefinitionRef: abc
+---
+apiVersion: amiok.io/v1alpha1
+kind: CheckStatus
+metadata:
+  name: my-check3
+spec:
+  checkDefinitionRef: abc
