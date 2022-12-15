@@ -9,9 +9,9 @@ import { V1ObjectMeta } from '@kubernetes/client-node'
 const sleep = util.promisify(setTimeout);
 const platformBaseUrl = process.env.PLATFORM_BASE_URL || 'http://81e1f5de694c.ngrok.io'
 const platformPollingIntervalSecs = Number(process.env.PLATFORM_POLLING_INTERVAL_SECS || '10')
-const checkDefinitionRef = process.env.CHECK_DEFINITON_REF || 'abcdef'
-const name = process.env.CHECK_STATUS_OBJECT_NAME || 'my-check2'
-const namespace = process.env.CHECK_STATUS_OBJECT_NAMESPACE || 'test'
+const checkDefinitionRef = process.env.CHECK_DEFINITION_REF || ''
+const name = process.env.CHECK_STATUS_OBJECT_NAME || ''
+const namespace = process.env.CHECK_STATUS_OBJECT_NAMESPACE || ''
 
 interface GetCheckStatusPlatformResponse {
     healthy: boolean
