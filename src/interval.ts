@@ -3,9 +3,10 @@ import axios from 'axios'
 import { KubernetesService } from './k8s.service'
 import { CHECK_STATUS_GVR } from './constants'
 import { CheckStatusObject } from './types'
-import { omit, set } from 'lodash'
+import { omit } from 'lodash'
 import { V1ObjectMeta } from '@kubernetes/client-node'
 
+const logger = console
 const sleep = util.promisify(setTimeout);
 const platformBaseUrl = process.env.PLATFORM_BASE_URL || 'http://81e1f5de694c.ngrok.io'
 const platformPollingIntervalSecs = Number(process.env.PLATFORM_POLLING_INTERVAL_SECS || '10')
@@ -44,20 +45,16 @@ async function main() {
 
     while (true) {
         try {
-            console.log(`getting status from the platform for check ${name} in namespace ${namespace}`)
+            logger.info(`getting status from the platform for check ${name} in namespace ${namespace}`)
             const res = await axios.get<GetCheckStatusPlatformResponse>(`${platformBaseUrl}/api/check/${checkDefinitionRef}`)
-            // const { body: actual } = await k8sService.getNamespacedCustomObject({ ...CHECK_STATUS_GVR, namespace, name })
-            // const desired: CheckStatusObject = getDesiredCheckStatus(actual as CheckStatusObject, res.data.healthy)
-            // omit(actual.metadata, [ 'uid', 'resourceVersion', 'managedFields', 'annotations', 'creationTimestamp', 'generation' ])
-            // set(actual, 'status.healthy', res.data.healthy)
-            console.log(`applying status for check ${name} in namespace ${namespace}`)
-            // const newObject = await k8sService.apply(desired)
+            logger.info(`response from platform: ${JSON.stringify(res.data)}`)
+            logger.info(`applying status for check ${name} in namespace ${namespace}`)
             const newObject = await k8sService.setNamespacedCustomObjectStatus({ ...CHECK_STATUS_GVR, name, namespace }, { healthy: res.data.status })
-            console.log(JSON.stringify(newObject))
-            console.log(`successfully applied status for check ${name} in namespace ${namespace}`)
+            logger.info(JSON.stringify(newObject))
+            logger.info(`successfully applied status for check ${name} in namespace ${namespace}`)
         } catch (err) {
-            console.error('failed!')
-            console.error(err)
+            logger.error('failed!')
+            logger.error(err)
         }
 
         await sleep(platformPollingIntervalSecs * 1000)
@@ -65,3 +62,15 @@ async function main() {
 }
 
 main()
+    .catch((err) => {
+        logger.error(err);
+        process.exit(1);
+    });
+
+process.on('SIGTERM', () => {
+    process.exit(1);
+});
+
+process.on('SIGINT', () => {
+    process.exit(1);
+});

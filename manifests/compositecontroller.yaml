@@ -8,8 +8,8 @@ spec:
     apiVersion: amiok.io/v1alpha1
     resource: checkstatuses
   childResources:
-  - apiVersion: v1
-    resource: pods
+  - apiVersion: apps/v1
+    resource: deployments
     updateStrategy:
       method: Recreate
   hooks:
