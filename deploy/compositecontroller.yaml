@@ -1,12 +1,12 @@
 apiVersion: metacontroller.k8s.io/v1alpha1
 kind: CompositeController
 metadata:
-  name: test-controller
+  name: checkstatus-controller
 spec:
   generateSelector: true
   parentResource:
     apiVersion: amiok.io/v1alpha1
-    resource: servicehealthcheckstatuses
+    resource: checkstatuses
   childResources:
   - apiVersion: v1
     resource: pods
@@ -15,4 +15,4 @@ spec:
   hooks:
     sync:
       webhook:
-        url: http://test-controller.test/check
+        url: http://checkstatus-controller.test/check
