@@ -61,11 +61,11 @@ function getPod(checkStatusObject: CheckStatusObject): V1Pod {
                     env: [
                         {
                             name: 'PLATFORM_BASE_URL',
-                            value: 'http://81e1f5de694c.ngrok.io'
+                            value: process.env.PLATFORM_BASE_URL
                         },
                         {
                             name: 'PLATFORM_POLLING_INTERVAL_SECS',
-                            value: '10'
+                            value: process.env.PLATFORM_POLLING_INTERVAL_SECS
                         },
                         {
                             name: 'CHECK_DEFINITION_REF',

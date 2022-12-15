@@ -14,13 +14,17 @@ spec:
     spec:
       containers:
       - name: controller
-        image: kimaharfi/amiok-controller:0.0.5
+        image: kimaharfi/amiok-controller:0.0.6
         imagePullPolicy: Always
         env:
           - name: PORT
             value: "80"
           - name: INTERVAL_IMAGE
-            value: kimaharfi/amiok-interval:0.0.2
+            value: "kimaharfi/amiok-interval:0.0.3"
+          - name: PLATFORM_BASE_URL
+            value: "http://81e1f5de694c.ngrok.io"
+          - name: PLATFORM_POLLING_INTERVAL_SECS
+            value: "10"
         ports:
           - containerPort: 80
             name: controller
